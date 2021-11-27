@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <form id="detilsForm">
+            <div>
+                <input type="text" placeholder="First name" id="fName" value="g" />
+            </div>
+            <div>
+                <input type="text" placeholder="Last name" id="lName" value="g" />
+            </div>
+            <div>
+                <input type="text" placeholder="Id" id="id" value="1" />
+            </div>
+        </form>
+    </div>
+    <div><button name="send" value="send">Click</button></div>
+    <script>
+        const btnRef = document.querySelector('button');
+        const formRef = document.querySelector('#detilsForm')
+
+
+
+        btnRef.addEventListener('click', () => {
+            const fName = document.querySelector('#fName').value
+            const lName = document.querySelector('#lName').value
+            const id = document.querySelector('#id').value
+            const person = { fName, lName, id }
+            sendToServerPostRequst(person)
+        })
+
+        function sendToServerPostRequst(person) {
+            fetch('http://localhost:3000/persons', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(person)
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>
